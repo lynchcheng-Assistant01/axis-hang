@@ -12,7 +12,7 @@
 ## 本機預覽
 
 ```bash
-cd ~/LynchAssistant/studiox4-web/axis-gallery-planner
+# 於專案目錄下
 python3 -m http.server 8788 --bind 127.0.0.1
 # → http://127.0.0.1:8788/
 ```
