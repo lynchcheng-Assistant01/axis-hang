@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AXIS Gallery — 布展規劃</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111'/%3E%3Ctext x='16' y='22' font-family='Helvetica' font-size='18' fill='%23fff' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#161616; --ink2:#6b6b6b; --hair:#dcdad4; --paper:#faf9f6; --card:#ffffff;
+  --accent:#8a6f3c; --danger:#b03a2e; --ppc:1.2;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--paper); color:var(--ink);
+  font:15px/1.65 "Helvetica Neue", Helvetica, Arial, "PingFang TC", "Noto Sans TC", sans-serif;
+  -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px 120px;}
+
+/* ---------- header ---------- */
+header.top{position:sticky; top:0; z-index:50; background:rgba(250,249,246,.92);
+  backdrop-filter:blur(8px); border-bottom:1px solid var(--hair);}
+.top-inner{max-width:1180px; margin:0 auto; padding:14px 24px;
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+.brand{font-size:13px; letter-spacing:.42em; font-weight:700; white-space:nowrap;}
+.brand small{display:block; letter-spacing:.18em; font-weight:400; color:var(--ink2); font-size:10px; margin-top:2px;}
+#exTitle{flex:1 1 180px; min-width:140px; border:none; border-bottom:1px solid var(--hair);
+  background:transparent; padding:6px 2px; font-size:14px; color:var(--ink); outline:none;}
+#exTitle:focus{border-bottom-color:var(--accent);}
+.top-actions{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+button{font:inherit; cursor:pointer;}
+.btn{border:1px solid var(--ink); background:transparent; color:var(--ink);
+  padding:7px 14px; font-size:12.5px; letter-spacing:.08em; border-radius:2px; transition:.15s;}
+.btn:hover{background:var(--ink); color:#fff;}
+.btn.primary{background:var(--ink); color:#fff;}
+.btn.primary:hover{background:#000;}
+.btn.ghost{border-color:var(--hair); color:var(--ink2);}
+.btn.ghost:hover{border-color:var(--danger); color:var(--danger); background:transparent;}
+.btn:disabled{opacity:.4; pointer-events:none;}
+.pill{font-size:11.5px; color:var(--ink2); border:1px solid var(--hair); border-radius:99px; padding:3px 10px; white-space:nowrap;}
+
+/* ---------- sections ---------- */
+h2.sec{margin:64px 0 8px; font-size:12px; letter-spacing:.34em; font-weight:700; color:var(--ink);}
+h2.sec::after{content:""; display:block; height:1px; background:var(--hair); margin-top:10px;}
+.hint{color:var(--ink2); font-size:12.5px; margin:10px 0 18px;}
+.hint-list{color:var(--ink2); font-size:12.5px; margin:12px 0 6px; padding-left:22px;}
+.hint-list li{margin:3px 0;}
+.stmt-bg{fill:#f1ede2;}
+.stmt-line{stroke:#b3a684; stroke-width:1.2px; stroke-dasharray:7 5; vector-effect:non-scaling-stroke;}
+.stmt-label{font-size:11px; fill:#a3946e; letter-spacing:.18em; text-anchor:middle;}
+
+/* ---------- plan ---------- */
+.plan-box{position:relative; background:var(--card); border:1px solid var(--hair);}
+.plan-box img{display:block; width:100%; height:auto;}
+.plan-box svg{position:absolute; inset:0; width:100%; height:100%;}
+.hot{fill:transparent; stroke:transparent; cursor:pointer; pointer-events:all;}
+.hot:hover, .hot.hl{fill:rgba(138,111,60,.18); stroke:rgba(138,111,60,.7); stroke-width:2px;}
+.badge-dot{pointer-events:none;}
+.badge-dot circle{fill:var(--ink);}
+.badge-dot text{fill:#fff; font-size:30px; font-weight:700; text-anchor:middle;}
+
+/* ---------- surface card ---------- */
+.surface{margin:26px 0; background:var(--card); border:1px solid var(--hair); padding:22px 22px 18px; scroll-margin-top:86px;}
+.s-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px;}
+.s-head h3{font-size:17px; letter-spacing:.06em;}
+.s-head .dims{color:var(--ink2); font-size:12.5px;}
+.warn{font-size:11.5px; color:#fff; background:var(--danger); border-radius:2px; padding:2px 8px; letter-spacing:.05em;}
+.count-pill{font-size:11.5px; color:var(--ink2);}
+.drag-read{font-size:12px; color:var(--accent); min-height:18px; font-variant-numeric:tabular-nums;}
+.s-controls{display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin:8px 0 14px; font-size:12.5px; color:var(--ink2);}
+.s-controls select,.s-controls input[type=number]{font:inherit; border:1px solid var(--hair); background:#fff; padding:4px 6px; border-radius:2px; color:var(--ink);}
+.s-controls input[type=number]{width:72px;}
+.s-body{display:flex; gap:26px; align-items:flex-start; flex-wrap:wrap;}
+.elev-scroll{overflow-x:auto; max-width:100%; padding-bottom:6px;}
+svg.elev{display:block; touch-action:none; user-select:none;}
+.band{fill:#b9b6ae;}
+.band.topzone{fill:#e6e4de;}
+.band.topstrip{fill:#8f8c85;}
+.display-area{fill:#fff; stroke:#c9c6bf; stroke-width:1px; vector-effect:non-scaling-stroke;}
+.wall-outline{fill:none; stroke:var(--ink); stroke-width:1.2px; vector-effect:non-scaling-stroke;}
+.guide{stroke:var(--accent); stroke-width:1px; stroke-dasharray:6 5; opacity:.55; vector-effect:non-scaling-stroke;}
+.gridlayer{opacity:0; transition:opacity .15s; pointer-events:none;}
+svg.elev.dragging .gridlayer{opacity:1;}
+.floor-label{font-size:9px; fill:#9a978f; letter-spacing:.08em;}
+g.art{cursor:grab; outline:none;}
+g.art rect.body{stroke-width:1.6px; vector-effect:non-scaling-stroke;}
+g.art.overlap rect.body{stroke:var(--danger) !important;}
+g.art.overlap rect.hatch{fill:url(#hatchRed);}
+g.art:focus rect.body, g.art.dragging rect.body{stroke-width:3px;}
+g.art text{pointer-events:none; text-anchor:middle; fill:var(--ink);}
+g.art text.idx{font-weight:700;}
+g.art text.szl{fill:var(--ink2);}
+
+/* table panel */
+.panel{flex:1 1 300px; min-width:270px;}
+table.rows{width:100%; border-collapse:collapse; font-size:13px;}
+table.rows th{font-size:10.5px; letter-spacing:.14em; color:var(--ink2); font-weight:400; text-align:left; padding:4px 6px; border-bottom:1px solid var(--hair);}
+table.rows td{padding:6px 6px; border-bottom:1px solid #eeece7; vertical-align:middle;}
+table.rows input{width:64px; font:inherit; border:1px solid var(--hair); padding:4px 5px; border-radius:2px; background:#fff;}
+table.rows tr.invalid input{border-color:var(--danger);}
+.swatch{width:14px; height:14px; border-radius:2px; display:inline-block; border:1px solid rgba(0,0,0,.2);}
+tr.hl-row td{background:#f5f1e8;}
+.rm{border:none; background:none; color:var(--ink2); font-size:15px; padding:2px 6px;}
+.rm:hover{color:var(--danger);}
+.row-err{color:var(--danger); font-size:11.5px;}
+.add-row{margin-top:10px; border:1px dashed var(--hair); background:none; width:100%; padding:8px; color:var(--ink2); font-size:12.5px; border-radius:2px;}
+.add-row:hover{border-color:var(--ink); color:var(--ink);}
+details.coords{margin-top:14px; font-size:12px; color:var(--ink2);}
+details.coords summary{cursor:pointer; letter-spacing:.1em; font-size:11.5px;}
+details.coords table{margin-top:8px; border-collapse:collapse; font-variant-numeric:tabular-nums;}
+details.coords td, details.coords th{padding:2px 10px 2px 0; text-align:right; font-weight:400;}
+details.coords th{color:#9a978f; font-size:10.5px; letter-spacing:.1em;}
+
+/* columns grid */
+.col-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px;}
+.col-grid .surface{margin:0;}
+@media (max-width:960px){ .col-grid{grid-template-columns:1fr;} }
+
+/* toast */
+#toast{position:fixed; left:50%; bottom:34px; transform:translateX(-50%) translateY(20px);
+  background:var(--ink); color:#fff; padding:10px 22px; font-size:13px; border-radius:3px;
+  opacity:0; pointer-events:none; transition:.3s; z-index:99; max-width:86vw; text-align:center;}
+#toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+#drop-ov{position:fixed; inset:0; background:rgba(250,249,246,.9); z-index:98; display:none;
+  align-items:center; justify-content:center; font-size:16px; letter-spacing:.2em; color:var(--ink);
+  border:3px dashed var(--accent);}
+#drop-ov.on{display:flex;}
+footer.ft{margin-top:80px; color:#b5b2aa; font-size:11px; letter-spacing:.2em; text-align:center;}
+#calib{position:fixed; right:12px; bottom:12px; background:#111; color:#0f0; font:12px monospace; padding:6px 10px; display:none; z-index:99;}
+@media (max-width:700px){
+  .top-inner{padding:8px 14px; gap:8px;}
+  .brand{font-size:11px;}
+  .brand small{display:none;}
+  .btn{padding:6px 10px; font-size:11.5px;}
+  #exTitle{flex-basis:100%; order:9;}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">AXIS GALLERY<small>HANGING PLANNER · 布展規劃</small></div>
+    <input id="exTitle" type="text" placeholder="展覽名稱（會印在 PDF 封面）" autocomplete="off">
+    <div class="top-actions">
+      <span class="pill" id="totalPill">共 0 件</span>
+      <button class="btn" id="btnImport">匯入 PDF / JSON</button>
+      <button class="btn" id="btnJson">匯出 JSON</button>
+      <button class="btn primary" id="btnPdf">輸出 PDF</button>
+      <button class="btn ghost" id="btnReset">重置</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <h2 class="sec" id="sec-plan">FLOOR PLAN · 平面圖</h2>
+  <ol class="hint-list">
+    <li>點擊平面圖上的<b>牆體或文字標籤</b>，跳到對應立面。</li>
+    <li>輸入畫作「<b>高 × 寬 × 數量</b>」，自動均分上牆。</li>
+    <li>畫作可用<b>滑鼠（或觸控）自由拖放</b>，拖曳時自動吸附 <b>10 cm 格點</b>（柱面水平恆置中、只吸垂直）；按住 Alt 拖曳＝0.5 cm 自由微調，方向鍵 1 cm、Shift + 方向鍵 10 cm。</li>
+    <li>按「<b>輸出 PDF</b>」，產出統計頁與各牆放樣座標。</li>
+    <li>之後把該 PDF <b>拖回本頁</b>（或按「匯入 PDF / JSON」），即可繼續編輯。</li>
+  </ol>
+  <p class="hint">Column 1–6 為四根柱子的六個預掛面，每面寬 60 cm。<b>Wall A 右側 1/3 為藝術家說明區</b>（固定位置、不掛畫）。</p>
+  <div class="plan-box" id="planBox">
+    <img id="planImg" src="assets/plan.png" alt="AXIS Gallery 平面圖">
+    <svg id="planSvg" viewBox="0 0 2388 1604" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+
+  <h2 class="sec">WALLS · 牆面</h2>
+  <div id="wallSections"></div>
+
+  <h2 class="sec">COLUMNS · 柱面</h2>
+  <div class="col-grid" id="colSections"></div>
+
+  <footer class="ft">AXIS GALLERY — HANGING PLANNER</footer>
+</div>
+
+<input type="file" id="fileIn" accept=".pdf,.json,application/pdf,application/json" hidden>
+<div id="toast"></div>
+<div id="drop-ov">放開以匯入 PDF / JSON</div>
+<div id="calib"></div>
+
+<script src="vendor/pdf-lib.min.js"></script>
+<script>
+'use strict';
+/* ================= CONFIG ================= */
+const BANDS = { ventTop:22, dispTop:256, totalH:323, dispH:234, centerY:139 };
+const SURFACES = [
+  {id:'wall-a', label:'Wall A', kind:'wall', L:330},
+  {id:'wall-b', label:'Wall B', kind:'wall', L:425},
+  {id:'wall-c', label:'Wall C', kind:'wall', L:430},
+  {id:'wall-d', label:'Wall D', kind:'wall', L:400},
+  {id:'wall-e', label:'Wall E', kind:'wall', L:270},
+  {id:'wall-f', label:'Wall F', kind:'wall', L:320},
+  {id:'wall-g', label:'Wall G', kind:'wall', L:500},
+  {id:'col-1', label:'Column 1', kind:'column', L:60},
+  {id:'col-2', label:'Column 2', kind:'column', L:60},
+  {id:'col-3', label:'Column 3', kind:'column', L:60},
+  {id:'col-4', label:'Column 4', kind:'column', L:60},
+  {id:'col-5', label:'Column 5', kind:'column', L:60},
+  {id:'col-6', label:'Column 6', kind:'column', L:60},
+];
+const SUR = Object.fromEntries(SURFACES.map(s=>[s.id,s]));
+const rect=(x1,y1,x2,y2)=>[[x1,y1],[x2,y1],[x2,y2],[x1,y2]];
+/* hotspots in plan.png pixel coords (2388x1604) */
+const HOTSPOTS = [
+  {s:'wall-d', pts:rect(858,40,1350,105)},   {s:'wall-d', pts:rect(1017,119,1184,200)},
+  {s:'wall-c', pts:rect(1408,40,1902,105)},  {s:'wall-c', pts:rect(1583,119,1749,200)},
+  {s:'wall-b', pts:[[1876,55],[1978,55],[2166,592],[2064,592]]},
+  {s:'wall-b', pts:rect(1856,351,2023,434)},
+  {s:'wall-a', pts:rect(2065,585,2152,1012)},
+  {s:'wall-a', pts:rect(1934,750,2094,833)},
+  {s:'wall-e', pts:[[440,256],[470,256],[582,524],[552,524]]},
+  {s:'wall-e', pts:rect(533,357,700,440)},
+  {s:'wall-f', pts:[[600,641],[631,641],[794,1033],[764,1033]]},
+  {s:'wall-f', pts:rect(700,750,859,833)},
+  {s:'wall-g', pts:[[830,1136],[1488,862],[1488,894],[830,1168]]},
+  {s:'wall-g', pts:rect(1081,926,1247,1009)},
+  /* 柱方塊：圖上僅 3 顆；3/1 與 4/2 各共用一顆（同柱兩掛面），6 自有，5 無方塊補等寬框 */
+  {s:'col-5', pts:rect(790,219,1033,292)},
+  {s:'col-3', pts:rect(1172,224,1330,292)}, {s:'col-3', pts:rect(1350,213,1419,282)},
+  {s:'col-1', pts:rect(1350,213,1419,282)}, {s:'col-1', pts:rect(1420,212,1589,292)},
+  {s:'col-6', pts:rect(785,562,1033,637)},
+  {s:'col-4', pts:rect(1172,562,1330,637)}, {s:'col-4', pts:rect(1350,564,1419,633)},
+  {s:'col-2', pts:rect(1350,564,1419,633)}, {s:'col-2', pts:rect(1420,550,1589,637)},
+];
+const BADGE_AT = {
+  'wall-d':[1196,131],'wall-c':[1761,131],'wall-b':[2035,363],'wall-a':[2106,762],
+  'wall-e':[712,369],'wall-f':[871,762],'wall-g':[1259,938],
+  'col-5':[1041,284],'col-3':[1338,284],'col-1':[1597,278],
+  'col-6':[1041,625],'col-4':[1338,625],'col-2':[1597,619],
+};
+const PALETTE = ['#A9654F','#B08D3E','#5B7285','#7C8A6E','#7B5E7B','#4E8378','#9A5B43','#5B5B60'];
+const LS_KEY = 'axis-gallery-planner:v1';
+const APP_ID = 'axis-gallery-planner';
+
+/* ================= STATE ================= */
+function blankSurface(){ return {verticalRule:'center', toplineCm:200, autoLayout:true, groups:[], artworks:[]}; }
+function blankState(){
+  const s = {app:APP_ID, version:1, savedAt:null, title:'', geometry:{
+    bands:{airVent:[0,BANDS.ventTop], display:[BANDS.ventTop,BANDS.dispTop], top:[BANDS.dispTop,BANDS.totalH], totalH:BANDS.totalH},
+    surfaces:Object.fromEntries(SURFACES.map(x=>[x.id,x.L]))
+  }, surfaces:{}};
+  SURFACES.forEach(x=>s.surfaces[x.id]=blankSurface());
+  return s;
+}
+let state = blankState();
+const snap = v => Math.round(v*2)/2;
+const clamp = (v,a,b) => Math.min(b, Math.max(a,v));
+const fmt = v => Number.isInteger(v) ? String(v) : (Math.round(v*10)/10).toFixed(1).replace(/\.0$/,'');
+const uid = () => 'g'+Date.now().toString(36)+Math.floor(Math.random()*1296).toString(36);
+
+let saveTimer=null;
+function save(){ clearTimeout(saveTimer); saveTimer=setTimeout(()=>{
+  state.savedAt = new Date().toISOString();
+  state.title = document.getElementById('exTitle').value.trim();
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){}
+}, 300); }
+
+/* ================= LAYOUT ALGORITHMS ================= */
+function hangEndOf(su){ // 固定規則：只有 Wall A 右 1/3 = 藝術家說明區（不掛畫）
+  return su.id==='wall-a' ? Math.round(su.L*2/3) : su.L;
+}
+function hangEnd(id){ return hangEndOf(SUR[id]); }
+function ruleY(ss, h){
+  let yTop = ss.verticalRule==='topline' ? ss.toplineCm : BANDS.centerY + h/2;
+  return clamp(snap(yTop), BANDS.ventTop + h, BANDS.dispTop);
+}
+function seqArtworks(ss){ // group order → in-group order
+  const byG = {}; ss.artworks.forEach(a=>{ (byG[a.groupId]=byG[a.groupId]||[]).push(a); });
+  const seq=[];
+  ss.groups.forEach(g=>{ (byG[g.id]||[]).sort((a,b)=>a.id<b.id?-1:1).forEach(a=>seq.push({a,g})); });
+  return seq;
+}
+function layoutSurface(id){ // even-gap distribution of ALL artworks (within hangable zone)
+  const ss = state.surfaces[id], L = hangEnd(id);
+  const seq = seqArtworks(ss);
+  const n = seq.length; if(!n) return;
+  if(SUR[id].kind==='column' && n>1){ // columns: stack vertically, centered horizontally
+    const sumH = seq.reduce((t,x)=>t+x.g.heightCm,0);
+    let gap = (BANDS.dispH - sumH)/(n+1);
+    let yTop;
+    if(gap>=0){ yTop = BANDS.dispTop - gap; }
+    else { gap = (BANDS.dispH - sumH)/(n-1); yTop = BANDS.dispTop; }
+    seq.forEach(({a,g})=>{
+      a.xCm = clamp(snap((L-g.widthCm)/2), 0, Math.max(0, L-g.widthCm));
+      a.yTopCm = clamp(snap(yTop), BANDS.ventTop+g.heightCm, BANDS.dispTop);
+      yTop -= g.heightCm + gap;
+    });
+    return;
+  }
+  const sumW = seq.reduce((t,x)=>t+x.g.widthCm,0);
+  let gap, x;
+  if(n===1){ x=(L-sumW)/2; gap=0; }
+  else if(L-sumW>=0){ gap=(L-sumW)/(n+1); x=gap; }
+  else { gap=(L-sumW)/(n-1); x=0; }
+  seq.forEach(({a,g})=>{
+    a.xCm = clamp(snap(x), 0, Math.max(0, L-g.widthCm));
+    a.yTopCm = ruleY(ss, g.heightCm);
+    x += g.widthCm + gap;
+  });
+}
+function reapplyVertical(id){
+  const ss = state.surfaces[id];
+  if(SUR[id].kind==='column' && ss.artworks.length>1){ // stacked columns: rule doesn't apply
+    if(ss.autoLayout) layoutSurface(id);
+    return;
+  }
+  const gById = Object.fromEntries(ss.groups.map(g=>[g.id,g]));
+  ss.artworks.forEach(a=>{ const g=gById[a.groupId]; if(g) a.yTopCm = ruleY(ss, g.heightCm); });
+}
+function groupValid(id, g){
+  const L = hangEnd(id);
+  const errs=[];
+  if(!(g.heightCm>0) || !(g.widthCm>0) || !(g.qty>=1)) errs.push('數值不完整');
+  if(g.heightCm > BANDS.dispH) errs.push('高超過可掛高 '+BANDS.dispH);
+  if(g.widthCm > L) errs.push('寬超過可掛範圍 '+L);
+  return errs;
+}
+function rebuildGroupArtworks(id, g){
+  const ss = state.surfaces[id], L = hangEnd(id);
+  const errs = groupValid(id, g);
+  const olds = ss.artworks.filter(a=>a.groupId===g.id).sort((a,b)=>a.id<b.id?-1:1);
+  ss.artworks = ss.artworks.filter(a=>a.groupId!==g.id);
+  if(errs.length) return; // invalid rows render nothing
+  const q = Math.min(99, Math.max(1, Math.floor(g.qty)));
+  for(let i=0;i<q;i++){
+    const old = olds[i];
+    let xCm, yTopCm;
+    if(old && !ss.autoLayout){ // preserve center on manual layouts
+      const cx = old.xCm + (old._w!==undefined ? old._w/2 : g.widthCm/2);
+      xCm = clamp(snap(cx - g.widthCm/2), 0, Math.max(0,L-g.widthCm));
+      yTopCm = clamp(snap(old.yTopCm), BANDS.ventTop+g.heightCm, BANDS.dispTop);
+    } else if(!ss.autoLayout){ // new piece on manual layout: spread by index
+      if(SUR[id].kind==='column'){
+        xCm = clamp(snap((L-g.widthCm)/2), 0, Math.max(0,L-g.widthCm));
+        yTopCm = clamp(snap(BANDS.dispTop - i*(g.heightCm+8)), BANDS.ventTop+g.heightCm, BANDS.dispTop);
+      } else {
+        xCm = clamp(snap((i+1)*L/(q+1) - g.widthCm/2), 0, Math.max(0,L-g.widthCm));
+        yTopCm = ruleY(ss, g.heightCm);
+      }
+    } else { xCm = 0; yTopCm = ruleY(ss, g.heightCm); }
+    ss.artworks.push({id:g.id+'-'+i, groupId:g.id, xCm, yTopCm});
+  }
+  if(ss.autoLayout) layoutSurface(id);
+}
+function overlapsOf(id){
+  const ss = state.surfaces[id];
+  const gById = Object.fromEntries(ss.groups.map(g=>[g.id,g]));
+  const boxes = ss.artworks.map(a=>{ const g=gById[a.groupId]; return g?{id:a.id, x1:a.xCm, x2:a.xCm+g.widthCm, y1:a.yTopCm-g.heightCm, y2:a.yTopCm}:null; }).filter(Boolean);
+  const bad = new Set();
+  for(let i=0;i<boxes.length;i++) for(let j=i+1;j<boxes.length;j++){
+    const A=boxes[i],B=boxes[j];
+    if(A.x1<B.x2 && B.x1<A.x2 && A.y1<B.y2 && B.y1<A.y2){ bad.add(A.id); bad.add(B.id); }
+  }
+  return bad;
+}
+
+/* ================= DOM BUILD ================= */
+const SNS = 'http://www.w3.org/2000/svg';
+const el = (t,attrs={},parent)=>{ const n=document.createElementNS(SNS,t);
+  for(const k in attrs) n.setAttribute(k,attrs[k]); if(parent) parent.appendChild(n); return n; };
+const hel = (t,cls,parent)=>{ const n=document.createElement(t); if(cls) n.className=cls; if(parent) parent.appendChild(n); return n; };
+
+function buildPlan(){
+  const svg = document.getElementById('planSvg');
+  svg.innerHTML='';
+  HOTSPOTS.forEach(h=>{
+    const p = el('polygon', {points:h.pts.map(p=>p.join(',')).join(' '), class:'hot', 'data-s':h.s}, svg);
+    const t = el('title',{},p); t.textContent = SUR[h.s].label + ' — ' + SUR[h.s].L + ' cm';
+    p.addEventListener('click', ()=>{ if(calibMode) return;
+      document.getElementById('sec-'+h.s).scrollIntoView({behavior:'smooth', block:'start'}); });
+    p.addEventListener('pointerenter', ()=>setPlanHL(h.s,true));
+    p.addEventListener('pointerleave', ()=>setPlanHL(h.s,false));
+  });
+  const bg = el('g',{id:'planBadges'},svg);
+}
+function setPlanHL(sid,on){
+  document.querySelectorAll(`#planSvg .hot[data-s="${sid}"]`).forEach(p=>p.classList.toggle('hl',on));
+}
+function renderPlanBadges(){
+  const g = document.getElementById('planBadges'); if(!g) return;
+  g.innerHTML='';
+  SURFACES.forEach(su=>{
+    const n = state.surfaces[su.id].artworks.length; if(!n) return;
+    const [x,y] = BADGE_AT[su.id];
+    const cx = x+22, cy = y-26;
+    const b = el('g',{class:'badge-dot'},g);
+    el('circle',{cx:cx, cy:cy, r:24},b);
+    const t = el('text',{x:cx, y:cy+11},b); t.textContent=n;
+  });
+}
+
+function buildSections(){
+  const wallsBox = document.getElementById('wallSections');
+  const colsBox = document.getElementById('colSections');
+  SURFACES.forEach(su=>{
+    const card = hel('section','surface', su.kind==='wall'?wallsBox:colsBox);
+    card.id = 'sec-'+su.id;
+    card.innerHTML = `
+      <div class="s-head">
+        <h3>${su.label}</h3>
+        <span class="dims" data-r="dims"></span>
+        <span class="count-pill" data-r="count"></span>
+        <span class="warn" data-r="ovl" hidden>重疊</span>
+        <span class="drag-read" data-r="read"></span>
+      </div>
+      <div class="s-controls">
+        <label>垂直規則
+          <select data-r="rule">
+            <option value="center">展示區垂直置中（中心 ${BANDS.centerY} cm）</option>
+            <option value="topline">齊頂線（統一上緣）</option>
+          </select>
+        </label>
+        <label data-r="toplineWrap" hidden>頂線離地
+          <input type="number" data-r="topline" min="40" max="${BANDS.dispTop}" step="0.5"> cm
+        </label>
+        <button class="btn ghost" data-r="relayout" style="padding:4px 10px">重新均分</button>
+      </div>
+      <div class="s-body">
+        <div class="elev-scroll"><svg class="elev" data-r="svg"></svg></div>
+        <div class="panel">
+          <table class="rows">
+            <thead><tr><th></th><th>高 cm</th><th>寬 cm</th><th>數量</th><th></th></tr></thead>
+            <tbody data-r="tbody"></tbody>
+          </table>
+          <button class="add-row" data-r="add">＋ 新增畫作（高 × 寬 × 數量）</button>
+          <details class="coords"><summary>放樣座標（cm，左緣距牆左端 / 離地）</summary>
+            <div data-r="coords"></div></details>
+        </div>
+      </div>`;
+    // controls
+    const q = sel=>card.querySelector(`[data-r="${sel}"]`);
+    q('rule').addEventListener('change', e=>{
+      state.surfaces[su.id].verticalRule = e.target.value;
+      q('toplineWrap').hidden = e.target.value!=='topline';
+      reapplyVertical(su.id); save(); renderSurface(su.id);
+    });
+    q('topline').addEventListener('change', e=>{
+      const v = clamp(parseFloat(e.target.value)||200, 40, BANDS.dispTop);
+      e.target.value=v; state.surfaces[su.id].toplineCm=v;
+      reapplyVertical(su.id); save(); renderSurface(su.id);
+    });
+    q('relayout').addEventListener('click', ()=>{
+      state.surfaces[su.id].autoLayout = true;
+      layoutSurface(su.id); save(); renderSurface(su.id);
+    });
+    q('add').addEventListener('click', ()=>{
+      const ss = state.surfaces[su.id];
+      const g = {id:uid(), heightCm:70, widthCm:50, qty:1, colorIndex:ss.groups.length%PALETTE.length};
+      ss.groups.push(g); rebuildGroupArtworks(su.id,g); save(); renderSurface(su.id);
+    });
+  });
+}
+
+/* ================= SURFACE RENDER ================= */
+function renderSurface(id){
+  const su = SUR[id], ss = state.surfaces[id];
+  const card = document.getElementById('sec-'+id);
+  const q = sel=>card.querySelector(`[data-r="${sel}"]`);
+  // controls reflect state
+  const he = hangEnd(id);
+  q('rule').value = ss.verticalRule;
+  q('toplineWrap').hidden = ss.verticalRule!=='topline';
+  q('topline').value = ss.toplineCm;
+  q('dims').textContent = he < su.L
+    ? `長 ${su.L} cm · 可掛 0–${he} cm（右 ${su.L-he} cm 說明區）· 掛高離地 ${BANDS.ventTop}–${BANDS.dispTop}`
+    : `長 ${su.L} cm · 可掛高 ${BANDS.dispH} cm（離地 ${BANDS.ventTop}–${BANDS.dispTop}）`;
+  q('count').textContent = ss.artworks.length ? ss.artworks.length+' 件' : '尚未配置';
+  // svg
+  const svg = q('svg');
+  svg.setAttribute('viewBox', `0 0 ${su.L} ${BANDS.totalH}`);
+  svg.style.width = `calc(var(--ppc) * ${su.L}px)`;
+  svg.innerHTML='';
+  const defs = el('defs',{},svg);
+  defs.innerHTML = `<pattern id="hatchRed" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+    <rect width="6" height="6" fill="rgba(176,58,46,.08)"/><line x1="0" y1="0" x2="0" y2="6" stroke="rgba(176,58,46,.5)" stroke-width="1.2"/></pattern>
+  <pattern id="grid10" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="translate(0,3)">
+    <path d="M 10 0 H 0 V 10" fill="none" stroke="rgba(20,20,20,.13)" stroke-width=".4"/></pattern>`;
+  const Y = cm => BANDS.totalH - cm; // floor-cm → svg-y
+  el('rect',{x:0,y:0,width:su.L,height:BANDS.totalH-BANDS.dispTop,class:'band topzone'},svg);
+  el('rect',{x:0,y:0,width:su.L,height:12,class:'band topstrip'},svg);
+  el('rect',{x:0,y:Y(BANDS.dispTop),width:su.L,height:BANDS.dispH,class:'display-area'},svg);
+  el('rect',{x:0,y:Y(BANDS.dispTop),width:su.L,height:BANDS.dispH,fill:'url(#grid10)',class:'gridlayer'},svg);
+  el('rect',{x:0,y:Y(BANDS.ventTop),width:su.L,height:BANDS.ventTop,class:'band'},svg);
+  if(he < su.L){ // 藝術家說明區（右 1/3）
+    el('rect',{x:he, y:Y(BANDS.dispTop), width:su.L-he, height:BANDS.dispH, class:'stmt-bg'},svg);
+    el('line',{x1:he, y1:Y(BANDS.dispTop), x2:he, y2:Y(BANDS.ventTop), class:'stmt-line'},svg);
+    const scx = he+(su.L-he)/2, scy = Y(BANDS.centerY);
+    const st1 = el('text',{x:scx-7, y:scy, class:'stmt-label', transform:`rotate(-90 ${scx-7} ${scy})`},svg);
+    st1.textContent = 'ARTIST STATEMENT';
+    const st2 = el('text',{x:scx+11, y:scy, class:'stmt-label', transform:`rotate(-90 ${scx+11} ${scy})`},svg);
+    st2.textContent = '說明區 · 不掛畫';
+  }
+  el('rect',{x:0,y:0,width:su.L,height:BANDS.totalH,class:'wall-outline'},svg);
+  const gy = ss.verticalRule==='topline' ? ss.toplineCm : BANDS.centerY;
+  el('line',{x1:0,y1:Y(gy),x2:he,y2:Y(gy),class:'guide'},svg);
+  // artworks
+  const gById = Object.fromEntries(ss.groups.map(g=>[g.id,g]));
+  const bad = overlapsOf(id);
+  const seq = seqArtworks(ss);
+  seq.forEach(({a,g},i)=>{
+    const grp = el('g',{class:'art'+(bad.has(a.id)?' overlap':''), 'data-id':a.id, tabindex:0},svg);
+    el('rect',{x:a.xCm, y:Y(a.yTopCm), width:g.widthCm, height:g.heightCm, class:'body',
+      fill:PALETTE[g.colorIndex]+'22', stroke:PALETTE[g.colorIndex]},grp);
+    el('rect',{x:a.xCm, y:Y(a.yTopCm), width:g.widthCm, height:g.heightCm, class:'hatch', fill:'transparent', 'pointer-events':'none'},grp);
+    if(g.heightCm>=26 && g.widthCm>=20){
+      const t1 = el('text',{x:a.xCm+g.widthCm/2, y:Y(a.yTopCm)+g.heightCm/2-1, class:'idx','font-size':Math.min(13, g.heightCm/2.4)},grp);
+      t1.textContent = i+1;
+      const t2 = el('text',{x:a.xCm+g.widthCm/2, y:Y(a.yTopCm)+g.heightCm/2+11, class:'szl','font-size':Math.min(9, g.heightCm/3.4)},grp);
+      if(g.heightCm>=40) t2.textContent = fmt(g.heightCm)+'×'+fmt(g.widthCm);
+    } else if(g.heightCm>=12 && g.widthCm>=10){
+      const t1 = el('text',{x:a.xCm+g.widthCm/2, y:Y(a.yTopCm)+g.heightCm/2+3.5, class:'idx','font-size':Math.min(10,g.heightCm-3)},grp);
+      t1.textContent = i+1;
+    }
+    const tt = el('title',{},grp);
+    tt.textContent = `#${i+1} ${fmt(g.heightCm)}×${fmt(g.widthCm)} — 左 ${fmt(a.xCm)} · 上 ${fmt(a.yTopCm)}`;
+    attachDrag(grp, id, a.id);
+  });
+  q('ovl').hidden = bad.size===0;
+  // table
+  const tbody = q('tbody'); tbody.innerHTML='';
+  ss.groups.forEach(g=>{
+    const errs = groupValid(id,g);
+    const tr = document.createElement('tr');
+    if(errs.length) tr.classList.add('invalid');
+    tr.dataset.gid = g.id;
+    tr.innerHTML = `
+      <td><span class="swatch" style="background:${PALETTE[g.colorIndex]}"></span></td>
+      <td><input type="number" step="0.5" min="1" value="${g.heightCm}" data-f="heightCm"></td>
+      <td><input type="number" step="0.5" min="1" value="${g.widthCm}" data-f="widthCm"></td>
+      <td><input type="number" step="1" min="1" max="99" value="${g.qty}" data-f="qty"></td>
+      <td><button class="rm" title="刪除此列">✕</button></td>`;
+    if(errs.length){
+      const er = document.createElement('tr'); er.className='invalid';
+      er.innerHTML = `<td></td><td colspan="4" class="row-err">${errs.join('、')}</td>`;
+      tbody.appendChild(tr); tbody.appendChild(er);
+    } else tbody.appendChild(tr);
+    tr.addEventListener('pointerenter', ()=>hlGroup(id,g.id,true));
+    tr.addEventListener('pointerleave', ()=>hlGroup(id,g.id,false));
+    tr.querySelectorAll('input').forEach(inp=>{
+      inp.addEventListener('change', ()=>{
+        const f = inp.dataset.f;
+        let v = parseFloat(inp.value);
+        if(f==='qty') v = clamp(Math.floor(v||0),1,99);
+        else v = clamp(snap(v||0), 0.5, 2000);
+        inp.value=v; g[f]=v;
+        rebuildGroupArtworks(id,g); save(); renderSurface(id);
+      });
+    });
+    tr.querySelector('.rm').addEventListener('click', ()=>{
+      ss.groups = ss.groups.filter(x=>x!==g);
+      ss.artworks = ss.artworks.filter(a=>a.groupId!==g.id);
+      if(ss.autoLayout) layoutSurface(id);
+      save(); renderSurface(id);
+    });
+  });
+  // coords list
+  const cbox = q('coords');
+  if(seq.length){
+    let h = '<table><tr><th>#</th><th>尺寸 高×寬</th><th>左緣 x</th><th>中心 x</th><th>上緣</th><th>下緣</th></tr>';
+    seq.forEach(({a,g},i)=>{ h += `<tr><td>${i+1}</td><td>${fmt(g.heightCm)}×${fmt(g.widthCm)}</td><td>${fmt(a.xCm)}</td><td>${fmt(a.xCm+g.widthCm/2)}</td><td>${fmt(a.yTopCm)}</td><td>${fmt(a.yTopCm-g.heightCm)}</td></tr>`; });
+    cbox.innerHTML = h+'</table>';
+  } else cbox.innerHTML = '<em>尚無畫作</em>';
+  renderPlanBadges(); renderTotals();
+}
+function hlGroup(id,gid,on){
+  document.querySelectorAll(`#sec-${id} g.art`).forEach(g=>{
+    if(g.dataset.id.startsWith(gid+'-')) g.querySelector('rect.body').style.strokeWidth = on?'3px':'';
+  });
+}
+function renderTotals(){
+  let n=0; SURFACES.forEach(su=>n+=state.surfaces[su.id].artworks.length);
+  document.getElementById('totalPill').textContent = '共 '+n+' 件';
+}
+function renderAll(){ SURFACES.forEach(su=>renderSurface(su.id));
+  document.getElementById('exTitle').value = state.title||''; }
+
+/* ================= DRAG ================= */
+function attachDrag(grp, sid, aid){
+  const svg = grp.ownerSVGElement;
+  const su = SUR[sid], ss = state.surfaces[sid];
+  const card = document.getElementById('sec-'+sid);
+  const readEl = card.querySelector('[data-r="read"]');
+  let dragging=false, dx=0, dy=0;
+  const getA = ()=>ss.artworks.find(a=>a.id===aid);
+  const getG = ()=>{ const a=getA(); return ss.groups.find(g=>g.id===a.groupId); };
+  const toCm = e=>{
+    const pt = svg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY;
+    const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+    return {x:p.x, yTop:BANDS.totalH - p.y};
+  };
+  const idxOf = ()=>{ const seq=seqArtworks(ss); return seq.findIndex(x=>x.a.id===aid)+1; };
+  const showRead = ()=>{ const a=getA(); readEl.textContent = `#${idxOf()} · 左 ${fmt(a.xCm)} · 上緣 ${fmt(a.yTopCm)}`; };
+  grp.addEventListener('pointerdown', e=>{
+    e.preventDefault(); grp.focus();
+    const a=getA(), g=getG(); if(!a||!g) return;
+    const p = toCm(e); dx = p.x - a.xCm; dy = p.yTop - a.yTopCm;
+    dragging=true; grp.classList.add('dragging'); svg.classList.add('dragging');
+    grp.setPointerCapture(e.pointerId);
+  });
+  grp.addEventListener('pointermove', e=>{
+    if(!dragging) return;
+    const a=getA(), g=getG(); if(!a||!g) return;
+    if(ss.autoLayout){ ss.autoLayout=false; }
+    const p = toCm(e);
+    const fine = e.altKey || e.metaKey; // Alt/Cmd 拖曳 = 0.5cm 微調，預設吸附 10cm 格點
+    const gsnap = v => fine ? snap(v) : Math.round(v/10)*10;
+    if(SUR[sid].kind==='column' && !fine){ // 柱面：水平恆置中，格點只作用於垂直
+      a.xCm = clamp(snap((su.L-g.widthCm)/2), 0, Math.max(0,su.L-g.widthCm));
+    } else {
+      a.xCm = clamp(gsnap(p.x-dx), 0, Math.max(0,hangEnd(sid)-g.widthCm));
+    }
+    a.yTopCm = clamp(gsnap(p.yTop-dy), BANDS.ventTop+g.heightCm, BANDS.dispTop);
+    const Yv = BANDS.totalH - a.yTopCm;
+    grp.querySelectorAll('rect').forEach(r=>{ r.setAttribute('x',a.xCm); r.setAttribute('y',Yv); });
+    grp.querySelectorAll('text').forEach(t=>{ t.setAttribute('x', a.xCm+g.widthCm/2);
+      if(t.classList.contains('idx')) t.setAttribute('y', g.heightCm>=26&&g.widthCm>=20 ? Yv+g.heightCm/2-1 : Yv+g.heightCm/2+3.5);
+      else t.setAttribute('y', Yv+g.heightCm/2+11); });
+    showRead();
+  });
+  const end = e=>{ if(!dragging) return; dragging=false; grp.classList.remove('dragging'); svg.classList.remove('dragging');
+    save(); renderSurface(sid); };
+  grp.addEventListener('pointerup', end);
+  grp.addEventListener('pointercancel', end);
+  grp.addEventListener('keydown', e=>{
+    const a=getA(), g=getG(); if(!a||!g) return;
+    const st = e.shiftKey?10:1; let used=true;
+    if(e.key==='ArrowLeft') a.xCm-=st; else if(e.key==='ArrowRight') a.xCm+=st;
+    else if(e.key==='ArrowUp') a.yTopCm+=st; else if(e.key==='ArrowDown') a.yTopCm-=st;
+    else used=false;
+    if(!used) return;
+    e.preventDefault();
+    ss.autoLayout=false;
+    a.xCm = clamp(snap(a.xCm),0,Math.max(0,hangEnd(sid)-g.widthCm));
+    a.yTopCm = clamp(snap(a.yTopCm), BANDS.ventTop+g.heightCm, BANDS.dispTop);
+    save(); showRead(); renderSurface(sid);
+    const ng = document.querySelector(`#sec-${sid} g.art[data-id="${aid}"]`); if(ng) ng.focus();
+  });
+}
+
+/* ================= PDF EXPORT ================= */
+const A4 = [842, 595]; // landscape
+const MARGIN = 64;
+const hx = h=>{ const n=parseInt(h.slice(1),16); return PDFLib.rgb(((n>>16)&255)/255,((n>>8)&255)/255,(n&255)/255); };
+const GRAY = v=>PDFLib.rgb(v,v,v);
+const ascii = s=>String(s||'').replace(/[^\x20-\x7E]/g,'?');
+const sp = s=>s.split('').join(' ');
+function titleImagePng(text){ // CJK-safe title: render via canvas, embed as image
+  const s=3, size=13; // pt
+  const c=document.createElement('canvas'); let g=c.getContext('2d');
+  const f=(size*s)+'px "Helvetica Neue","PingFang TC","Noto Sans TC",Helvetica,sans-serif';
+  g.font=f;
+  c.width=Math.ceil(g.measureText(text).width)+4*s; c.height=Math.ceil(size*1.5*s);
+  g=c.getContext('2d'); g.font=f; g.fillStyle='#595959'; g.textBaseline='alphabetic';
+  g.fillText(text, 2*s, size*1.18*s);
+  return {dataUrl:c.toDataURL('image/png'), wPt:c.width/s, hPt:c.height/s};
+}
+
+async function exportPDF(){
+  const btn = document.getElementById('btnPdf'); btn.disabled=true;
+  try{
+    state.title = document.getElementById('exTitle').value.trim();
+    const doc = await PDFLib.PDFDocument.create();
+    const F = await doc.embedFont(PDFLib.StandardFonts.Helvetica);
+    const FB = await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+    const today = new Date();
+    const dstr = today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+    const labels = [];
+    const newPage = lbl=>{ labels.push(lbl); return doc.addPage(A4); };
+    const active = SURFACES.filter(su=>state.surfaces[su.id].artworks.length>0);
+    const totalPieces = active.reduce((t,su)=>t+state.surfaces[su.id].artworks.length,0);
+
+    /* ---- cover / stats ---- */
+    let pg = newPage('HANGING PLAN');
+    let y = 470;
+    pg.drawText('EXHIBITION HANGING PLAN', {x:MARGIN, y, size:19, font:FB});
+    y-=24;
+    if(state.title){
+      if(/[^\x20-\x7E]/.test(state.title)){
+        const t = titleImagePng(state.title);
+        const png = await doc.embedPng(t.dataUrl);
+        const tw = Math.min(t.wPt, A4[0]-2*MARGIN), th = t.hPt*(tw/t.wPt);
+        pg.drawImage(png, {x:MARGIN, y:y-4, width:tw, height:th});
+        y-=th+8;
+      } else { pg.drawText(state.title, {x:MARGIN, y, size:12, font:F, color:GRAY(.35)}); y-=18; }
+    }
+    pg.drawText(dstr+'   ·   '+active.length+' surfaces   ·   '+totalPieces+' pieces', {x:MARGIN, y, size:9, font:F, color:GRAY(.45)});
+    y-=34;
+    const cols = {surf:MARGIN, size:MARGIN+190, qty:MARGIN+390, col:MARGIN+470};
+    const drawStatsHead = p=>{
+      p.drawText(sp('SURFACE'),{x:cols.surf,y,size:7.5,font:F,color:GRAY(.45)});
+      p.drawText(sp('SIZE H x W (CM)'),{x:cols.size,y,size:7.5,font:F,color:GRAY(.45)});
+      p.drawText(sp('QTY'),{x:cols.qty,y,size:7.5,font:F,color:GRAY(.45)});
+      p.drawText(sp('COLOR'),{x:cols.col,y,size:7.5,font:F,color:GRAY(.45)});
+      y-=8; p.drawLine({start:{x:MARGIN,y},end:{x:A4[0]-MARGIN,y},thickness:.6,color:GRAY(.2)}); y-=16;
+    };
+    drawStatsHead(pg);
+    for(const su of active){
+      const ss = state.surfaces[su.id];
+      let first=true;
+      const valid = ss.groups.filter(g=>groupValid(su.id,g).length===0);
+      for(const g of valid){
+        if(y<80){ pg = newPage('HANGING PLAN'); y=500; drawStatsHead(pg); }
+        if(first){ pg.drawText(su.label.toUpperCase()+'  -  '+su.L+' CM',{x:cols.surf,y,size:9.5,font:FB}); first=false; }
+        pg.drawText(fmt(g.heightCm)+' x '+fmt(g.widthCm),{x:cols.size,y,size:9.5,font:F});
+        pg.drawText(String(g.qty),{x:cols.qty,y,size:9.5,font:F});
+        pg.drawRectangle({x:cols.col,y:y-1,width:9,height:9,color:hx(PALETTE[g.colorIndex]),opacity:.25,borderColor:hx(PALETTE[g.colorIndex]),borderWidth:1});
+        y-=17;
+      }
+      y-=4; pg.drawLine({start:{x:MARGIN,y:y+8},end:{x:A4[0]-MARGIN,y:y+8},thickness:.4,color:GRAY(.85)}); y-=8;
+    }
+    pg.drawText('TOTAL',{x:cols.surf,y,size:9.5,font:FB});
+    pg.drawText(totalPieces+' PIECES',{x:cols.qty,y,size:9.5,font:FB});
+
+    /* ---- per-surface pages ---- */
+    let planImg = null;
+    const MINI_W = 190, MINI_H = 190*1604/2388;
+    try{
+      const pb = await fetch('assets/plan.png').then(r=>r.ok?r.arrayBuffer():Promise.reject(new Error(r.status)));
+      planImg = await doc.embedPng(pb);
+    }catch(e){ console.warn('mini plan embed failed', e); }
+    for(const su of active){
+      const ss = state.surfaces[su.id];
+      const gById = Object.fromEntries(ss.groups.map(g=>[g.id,g]));
+      const seq = seqArtworks(ss);
+      let p = newPage(su.label.toUpperCase());
+      const heP = hangEndOf(su);
+      p.drawText(su.label.toUpperCase()+' - '+su.L+' CM',{x:MARGIN,y:505,size:13,font:FB});
+      const ruleTxt = ss.verticalRule==='topline' ? 'top line @ '+fmt(ss.toplineCm)+' cm' : 'centered @ '+BANDS.centerY+' cm';
+      const zoneTxt = heP<su.L ? '   ·   hangable 0-'+heP+' cm / statement zone '+heP+'-'+su.L+' cm' : '';
+      p.drawText('display zone '+BANDS.ventTop+'-'+BANDS.dispTop+' cm'+zoneTxt+'   ·   vertical: '+ruleTxt+'   ·   '+seq.length+' pieces',
+        {x:MARGIN,y:488,size:8.5,font:F,color:GRAY(.45)});
+      // elevation (left zone; mini plan occupies right)
+      const boxW = 486, boxH = 240, boxY = 225;
+      const s = Math.min(boxW/su.L, boxH/BANDS.totalH);
+      const w = su.L*s, h = BANDS.totalH*s;
+      const x0 = MARGIN + (boxW-w)/2, y0 = boxY + (boxH-h)/2;
+      p.drawRectangle({x:x0, y:y0+BANDS.dispTop*s, width:w, height:(BANDS.totalH-BANDS.dispTop)*s, color:GRAY(.91)});
+      p.drawRectangle({x:x0, y:y0+(BANDS.totalH-12)*s, width:w, height:12*s, color:GRAY(.55)});
+      p.drawRectangle({x:x0, y:y0, width:w, height:BANDS.ventTop*s, color:GRAY(.72), opacity:.6});
+      p.drawRectangle({x:x0, y:y0+BANDS.ventTop*s, width:w, height:BANDS.dispH*s, borderColor:GRAY(.75), borderWidth:.6});
+      p.drawRectangle({x:x0, y:y0, width:w, height:h, borderColor:PDFLib.rgb(.09,.09,.09), borderWidth:1});
+      if(heP < su.L){ // statement zone
+        p.drawRectangle({x:x0+heP*s, y:y0+BANDS.ventTop*s, width:(su.L-heP)*s, height:BANDS.dispH*s, color:hx('#f1ede2')});
+        p.drawLine({start:{x:x0+heP*s, y:y0+BANDS.ventTop*s}, end:{x:x0+heP*s, y:y0+BANDS.dispTop*s}, thickness:.7, color:hx('#b3a684'), dashArray:[4,3]});
+        const stw = F.widthOfTextAtSize('ARTIST STATEMENT',6.5);
+        p.drawText('ARTIST STATEMENT', {x:x0+(heP+(su.L-heP)/2)*s+2.5, y:y0+BANDS.centerY*s-stw/2, size:6.5, font:F, color:hx('#a3946e'), rotate:PDFLib.degrees(90)});
+      }
+      const gy = ss.verticalRule==='topline' ? ss.toplineCm : BANDS.centerY;
+      p.drawLine({start:{x:x0,y:y0+gy*s}, end:{x:x0+heP*s,y:y0+gy*s}, thickness:.5, color:hx('#8a6f3c'), opacity:.5, dashArray:[3,3]});
+      seq.forEach(({a,g},i)=>{
+        const ax = x0+a.xCm*s, ay = y0+(a.yTopCm-g.heightCm)*s;
+        p.drawRectangle({x:ax, y:ay, width:g.widthCm*s, height:g.heightCm*s,
+          color:hx(PALETTE[g.colorIndex]), opacity:.13, borderColor:hx(PALETTE[g.colorIndex]), borderWidth:1});
+        const num = String(i+1);
+        p.drawText(num,{x:ax+(g.widthCm*s)/2 - FB.widthOfTextAtSize(num,7)/2, y:y0+a.yTopCm*s+3, size:7, font:FB, color:GRAY(.25)});
+      });
+      const den = Math.round((su.L*10)/(w*0.352778));
+      p.drawText('SCALE ~ 1:'+den,{x:x0+w/2 - F.widthOfTextAtSize('SCALE ~ 1:'+den,7)/2, y:boxY-16, size:7, font:F, color:GRAY(.5)});
+      // mini floor plan at right, wall highlighted
+      if(planImg){
+        const mx = A4[0]-MARGIN-MINI_W, myB = boxY + (boxH-MINI_H)/2;
+        p.drawImage(planImg, {x:mx, y:myB, width:MINI_W, height:MINI_H});
+        p.drawRectangle({x:mx, y:myB, width:MINI_W, height:MINI_H, borderColor:GRAY(.8), borderWidth:.5});
+        const marks = su.kind==='wall' ? [HOTSPOTS.find(hh=>hh.s===su.id)] : HOTSPOTS.filter(hh=>hh.s===su.id);
+        marks.filter(Boolean).forEach(mk=>{
+          const path = 'M ' + mk.pts.map(([px,py])=>(px*MINI_W/2388).toFixed(1)+' '+(py*MINI_H/1604).toFixed(1)).join(' L ') + ' Z';
+          p.drawSvgPath(path, {x:mx, y:myB+MINI_H, color:hx('#8a6f3c'), opacity:.55, borderColor:hx('#5c4a26'), borderWidth:.8});
+        });
+        const lt = 'LOCATION - '+su.label.toUpperCase();
+        p.drawText(lt, {x:mx+MINI_W/2-F.widthOfTextAtSize(lt,6)/2, y:myB-12, size:6, font:F, color:GRAY(.5)});
+      }
+      // measurement table
+      const tc = {n:MARGIN, size:MARGIN+60, left:MARGIN+220, cx:MARGIN+330, top:MARGIN+440, bot:MARGIN+550};
+      let ty = 178;
+      const drawMHead = pp=>{
+        pp.drawText(sp('NO'),{x:tc.n,y:ty,size:7,font:F,color:GRAY(.45)});
+        pp.drawText(sp('SIZE H x W'),{x:tc.size,y:ty,size:7,font:F,color:GRAY(.45)});
+        pp.drawText(sp('LEFT X'),{x:tc.left,y:ty,size:7,font:F,color:GRAY(.45)});
+        pp.drawText(sp('CENTER X'),{x:tc.cx,y:ty,size:7,font:F,color:GRAY(.45)});
+        pp.drawText(sp('TOP Y'),{x:tc.top,y:ty,size:7,font:F,color:GRAY(.45)});
+        pp.drawText(sp('BOTTOM Y'),{x:tc.bot,y:ty,size:7,font:F,color:GRAY(.45)});
+        ty-=6; pp.drawLine({start:{x:MARGIN,y:ty},end:{x:A4[0]-MARGIN,y:ty},thickness:.5,color:GRAY(.3)}); ty-=13;
+      };
+      drawMHead(p);
+      for(let i=0;i<seq.length;i++){
+        const {a,g}=seq[i];
+        if(ty<62){ p = newPage(su.label.toUpperCase()); ty=500; drawMHead(p); }
+        p.drawText(String(i+1),{x:tc.n,y:ty,size:8.5,font:FB});
+        p.drawText(fmt(g.heightCm)+' x '+fmt(g.widthCm),{x:tc.size,y:ty,size:8.5,font:F});
+        p.drawText(fmt(a.xCm),{x:tc.left,y:ty,size:8.5,font:F});
+        p.drawText(fmt(a.xCm+g.widthCm/2),{x:tc.cx,y:ty,size:8.5,font:F});
+        p.drawText(fmt(a.yTopCm),{x:tc.top,y:ty,size:8.5,font:F});
+        p.drawText(fmt(a.yTopCm-g.heightCm),{x:tc.bot,y:ty,size:8.5,font:F});
+        p.drawLine({start:{x:MARGIN,y:ty-4.5},end:{x:A4[0]-MARGIN,y:ty-4.5},thickness:.3,color:GRAY(.88)});
+        ty-=13;
+      }
+      p.drawText('all values in cm  ·  X from wall left edge  ·  Y from floor',{x:MARGIN,y:Math.max(ty-6,48),size:6.5,font:F,color:GRAY(.55)});
+    }
+
+    /* ---- chrome on every page ---- */
+    const pages = doc.getPages();
+    pages.forEach((p,i)=>{
+      p.drawText(sp('AXIS GALLERY'),{x:MARGIN,y:556,size:8,font:FB,letterSpacing:0});
+      const rl = sp(labels[i]);
+      p.drawText(rl,{x:A4[0]-MARGIN-F.widthOfTextAtSize(rl,8),y:556,size:8,font:F,color:GRAY(.4)});
+      p.drawLine({start:{x:MARGIN,y:548},end:{x:A4[0]-MARGIN,y:548},thickness:.6,color:GRAY(.15)});
+      p.drawLine({start:{x:MARGIN,y:40},end:{x:A4[0]-MARGIN,y:40},thickness:.5,color:GRAY(.75)});
+      p.drawText('Hanging Plan  ·  '+dstr,{x:MARGIN,y:29,size:7,font:F,color:GRAY(.5)});
+      const pn = (i+1)+' / '+pages.length;
+      p.drawText(pn,{x:A4[0]-MARGIN-F.widthOfTextAtSize(pn,7),y:29,size:7,font:F,color:GRAY(.5)});
+    });
+
+    /* ---- embed state (attachment + subject) ---- */
+    state.savedAt = new Date().toISOString();
+    const json = JSON.stringify(state);
+    await doc.attach(new TextEncoder().encode(json), 'axis-state.json',
+      {mimeType:'application/json', description:'AXIS Gallery hanging planner state',
+       afRelationship:PDFLib.AFRelationship.Data});
+    doc.setSubject(json);
+    doc.setTitle('AXIS Gallery Hanging Plan'+(state.title?' — '+state.title:''));
+    doc.setCreator('AXIS Gallery Hanging Planner');
+
+    const bytes = await doc.save();
+    const slug = (state.title||'plan').replace(/[^\w一-鿿-]+/g,'-').replace(/^-+|-+$/g,'')||'plan';
+    download(new Blob([bytes],{type:'application/pdf'}), `AXIS-hanging-${slug}-${dstr.replace(/-/g,'')}.pdf`);
+    toast('PDF 已輸出（內含可回讀的編輯狀態）');
+  }catch(err){ console.error(err); toast('PDF 輸出失敗：'+err.message); }
+  finally{ btn.disabled=false; }
+}
+function download(blob, name){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+
+/* ================= IMPORT ================= */
+function extractAttachment(doc, wantName){
+  const {PDFName, PDFDict, PDFArray, PDFRawStream, decodePDFRawStream} = PDFLib;
+  try{
+    const names = doc.catalog.lookupMaybe(PDFName.of('Names'), PDFDict);
+    if(!names) return null;
+    const efTree = names.lookupMaybe(PDFName.of('EmbeddedFiles'), PDFDict);
+    if(!efTree) return null;
+    const out=[];
+    (function walk(node){
+      const kids = node.lookupMaybe(PDFName.of('Kids'), PDFArray);
+      if(kids) for(let i=0;i<kids.size();i++) walk(kids.lookup(i, PDFDict));
+      const pairs = node.lookupMaybe(PDFName.of('Names'), PDFArray);
+      if(pairs) for(let i=0;i<pairs.size();i+=2){
+        const key = pairs.lookup(i);
+        const spec = pairs.lookup(i+1, PDFDict);
+        const ef = spec.lookupMaybe(PDFName.of('EF'), PDFDict); if(!ef) continue;
+        const strm = ef.lookupMaybe(PDFName.of('F'), PDFRawStream) || ef.lookupMaybe(PDFName.of('UF'), PDFRawStream);
+        if(strm) out.push({name: key.decodeText ? key.decodeText() : String(key),
+                           bytes: decodePDFRawStream(strm).decode()});
+      }
+    })(efTree);
+    const hit = out.find(a=>a.name===wantName);
+    return hit ? new TextDecoder().decode(hit.bytes) : null;
+  }catch(e){ console.warn('attach read failed', e); return null; }
+}
+function validateState(o){
+  if(!o || o.app!==APP_ID) throw new Error('此檔案不是 AXIS 布展規劃資料');
+  if(typeof o.version!=='number' || o.version>1) throw new Error('資料版本較新（v'+o.version+'），請更新網頁');
+  const st = blankState();
+  st.title = String(o.title||'');
+  st.savedAt = o.savedAt||null;
+  for(const su of SURFACES){
+    const src = o.surfaces && o.surfaces[su.id]; if(!src) continue;
+    const d = st.surfaces[su.id];
+    d.verticalRule = src.verticalRule==='topline' ? 'topline' : 'center';
+    d.toplineCm = clamp(parseFloat(src.toplineCm)||200, 40, BANDS.dispTop);
+    d.autoLayout = src.autoLayout!==false;
+    (Array.isArray(src.groups)?src.groups:[]).forEach((g,gi)=>{
+      const ng = {id:String(g.id||uid()), heightCm:clamp(parseFloat(g.heightCm)||0,0.5,2000),
+        widthCm:clamp(parseFloat(g.widthCm)||0,0.5,2000), qty:clamp(Math.floor(g.qty)||1,1,99),
+        colorIndex:Number.isInteger(g.colorIndex)?((g.colorIndex%PALETTE.length)+PALETTE.length)%PALETTE.length:gi%PALETTE.length};
+      d.groups.push(ng);
+    });
+    const gById = Object.fromEntries(d.groups.map(g=>[g.id,g]));
+    (Array.isArray(src.artworks)?src.artworks:[]).forEach(a=>{
+      const g = gById[a.groupId]; if(!g) return;
+      if(groupValid(su.id,g).length) return;
+      d.artworks.push({id:String(a.id||g.id+'-x'), groupId:g.id,
+        xCm:clamp(snap(parseFloat(a.xCm)||0), 0, Math.max(0,hangEndOf(su)-g.widthCm)),
+        yTopCm:clamp(snap(parseFloat(a.yTopCm)||ruleY(d,g.heightCm)), BANDS.ventTop+g.heightCm, BANDS.dispTop)});
+    });
+    // groups without artworks (valid ones) → rebuild
+    d.groups.forEach(g=>{
+      if(groupValid(su.id,g).length) return;
+      const have = d.artworks.filter(a=>a.groupId===g.id).length;
+      if(have!==g.qty){
+        d.artworks = d.artworks.filter(a=>a.groupId!==g.id);
+        const keep = d.autoLayout; d.autoLayout = true;
+        rebuildGroupArtworksFor(st, su.id, g); d.autoLayout = keep;
+      }
+    });
+  }
+  return st;
+}
+function rebuildGroupArtworksFor(st, id, g){ // minimal: even layout for rebuilt group
+  const d = st.surfaces[id], L = hangEndOf(SUR[id]), q = g.qty;
+  for(let i=0;i<q;i++){
+    d.artworks.push({id:g.id+'-'+i, groupId:g.id,
+      xCm:clamp(snap((i+1)*L/(q+1)-g.widthCm/2),0,Math.max(0,L-g.widthCm)),
+      yTopCm:clamp(snap((d.verticalRule==='topline'?d.toplineCm:BANDS.centerY+g.heightCm/2)), BANDS.ventTop+g.heightCm, BANDS.dispTop)});
+  }
+}
+async function importFile(file){
+  try{
+    if(/\.json$/i.test(file.name) || file.type==='application/json'){
+      const o = JSON.parse(await file.text());
+      state = validateState(o); save(); renderAll();
+      toast('已從 JSON 還原'+(state.savedAt?'（存檔於 '+state.savedAt.slice(0,16).replace('T',' ')+'）':''));
+      return;
+    }
+    const bytes = await file.arrayBuffer();
+    const doc = await PDFLib.PDFDocument.load(bytes, {updateMetadata:false, ignoreEncryption:true});
+    let json = extractAttachment(doc, 'axis-state.json');
+    if(!json){ const s = doc.getSubject(); if(s && s.trim().startsWith('{')) json = s; }
+    if(!json) throw new Error('此 PDF 不含布展規劃資料（請用本工具輸出的 PDF）');
+    state = validateState(JSON.parse(json)); save(); renderAll();
+    toast('已從 PDF 還原'+(state.savedAt?'（存檔於 '+state.savedAt.slice(0,16).replace('T',' ')+'）':''));
+    document.getElementById('sec-plan').scrollIntoView({behavior:'smooth'});
+  }catch(err){ console.error(err); toast('匯入失敗：'+err.message); }
+}
+
+/* ================= UI PLUMBING ================= */
+function toast(msg){
+  const t = document.getElementById('toast'); t.textContent=msg;
+  t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'), 4200);
+}
+document.getElementById('btnPdf').addEventListener('click', exportPDF);
+document.getElementById('btnJson').addEventListener('click', ()=>{
+  state.savedAt = new Date().toISOString();
+  state.title = document.getElementById('exTitle').value.trim();
+  const slug = (state.title||'plan').replace(/[^\w一-鿿-]+/g,'-').replace(/^-+|-+$/g,'')||'plan';
+  download(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}), `AXIS-hanging-${slug}.json`);
+  toast('JSON 已匯出');
+});
+document.getElementById('btnImport').addEventListener('click', ()=>document.getElementById('fileIn').click());
+document.getElementById('fileIn').addEventListener('change', e=>{
+  if(e.target.files[0]) importFile(e.target.files[0]); e.target.value='';
+});
+let resetArmed=false;
+document.getElementById('btnReset').addEventListener('click', e=>{
+  if(!resetArmed){ resetArmed=true; e.target.textContent='再按一次確認重置';
+    setTimeout(()=>{resetArmed=false; e.target.textContent='重置';}, 3000); return; }
+  resetArmed=false; e.target.textContent='重置';
+  state = blankState(); save(); renderAll(); toast('已重置');
+});
+document.getElementById('exTitle').addEventListener('input', save);
+/* drag & drop import */
+let dragDepth=0;
+window.addEventListener('dragenter', e=>{ e.preventDefault(); if(++dragDepth===1) document.getElementById('drop-ov').classList.add('on'); });
+window.addEventListener('dragleave', e=>{ if(--dragDepth<=0){ dragDepth=0; document.getElementById('drop-ov').classList.remove('on'); } });
+window.addEventListener('dragover', e=>e.preventDefault());
+window.addEventListener('drop', e=>{
+  e.preventDefault(); dragDepth=0; document.getElementById('drop-ov').classList.remove('on');
+  const f = e.dataTransfer.files && e.dataTransfer.files[0];
+  if(f) importFile(f);
+});
+/* responsive scale */
+function fitScale(){
+  const w = Math.min(document.querySelector('.wrap').clientWidth-48, 1132);
+  const avail = w>=920 ? w-360 : w;
+  document.documentElement.style.setProperty('--ppc', clamp(avail/520, 0.35, 1.5));
+}
+window.addEventListener('resize', ()=>{ fitScale(); });
+/* calibrate mode */
+const calibMode = new URLSearchParams(location.search).has('calibrate');
+if(calibMode){
+  const cb = document.getElementById('calib'); cb.style.display='block'; cb.textContent='calibrate: click plan';
+  document.getElementById('planSvg').addEventListener('click', e=>{
+    const svg = e.currentTarget;
+    const pt = svg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY;
+    const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+    const c = `[${Math.round(p.x)},${Math.round(p.y)}]`;
+    console.log(c); cb.textContent = c;
+  });
+}
+
+/* ================= BOOT ================= */
+buildPlan();
+buildSections();
+try{
+  const saved = localStorage.getItem(LS_KEY);
+  if(saved) state = validateState(JSON.parse(saved));
+}catch(e){ console.warn('localStorage restore failed', e); state = blankState(); }
+fitScale();
+renderAll();
+</script>
+</body>
+</html>
