@@ -415,7 +415,7 @@ function buildSections(){
           </select>
         </label>
         <label data-r="toplineWrap" hidden>頂線離地
-          <input type="number" data-r="topline" min="40" max="${BANDS.dispTop}" step="0.5"> cm
+          <input type="number" data-r="topline" min="40" max="${BANDS.dispTop}" step="1"> cm
         </label>
         <button class="btn ghost" data-r="relayout" style="padding:4px 10px">重新均分</button>
       </div>
@@ -529,8 +529,8 @@ function renderSurface(id){
     tr.dataset.gid = g.id;
     tr.innerHTML = `
       <td><span class="swatch" style="background:${PALETTE[g.colorIndex]}"></span></td>
-      <td><input type="number" step="0.5" min="1" value="${g.heightCm}" data-f="heightCm"></td>
-      <td><input type="number" step="0.5" min="1" value="${g.widthCm}" data-f="widthCm"></td>
+      <td><input type="number" step="1" min="1" value="${g.heightCm}" data-f="heightCm"></td>
+      <td><input type="number" step="1" min="1" value="${g.widthCm}" data-f="widthCm"></td>
       <td><input type="number" step="1" min="1" max="99" value="${g.qty}" data-f="qty"></td>
       <td><button class="rm" title="刪除此列">✕</button></td>`;
     if(errs.length){
